@@ -42,12 +42,22 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //KTX
+    implementation 'androidx.core:core-ktx:'
+
+    // Material Design
+    implementation "com.google.android.material:material:$material_design_version"
+
+    //ConstraintLayout
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+
+    //RecyclerView
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
 
     //Dagger - Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
