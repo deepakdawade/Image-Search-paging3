@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devdd.framework.imagesearch_pagination.R
 import com.devdd.framework.imagesearch_pagination.databinding.FragmentGalleryBinding
+import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashLoadStateAdapter
 import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoAdapter
 import com.devdd.framework.imagesearch_pagination.util.extenstion.bindingWithLifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,7 +56,14 @@ class GalleryFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.galleryFragmentRecyclerView.apply {
             setHasFixedSize(true)
-            adapter = unsplashPhotoAdapter
+            adapter = unsplashPhotoAdapter.withLoadStateHeaderAndFooter(
+                header = UnsplashLoadStateAdapter{
+                    unsplashPhotoAdapter.retry()
+                },
+                footer = UnsplashLoadStateAdapter{
+                    unsplashPhotoAdapter.retry()
+                }
+            )
         }
     }
 

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/unsplash_photo_footer_item_view_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/unsplash_photo_footer_item_view_error_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/unsplash_photo_footer_item_view_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/unsplash_photo_footer_error_message"
+            android:textColor="@color/colorText"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@id/unsplash_photo_footer_item_view_retry_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unsplash_photo_footer_item_view_progress_bar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/unsplash_photo_footer_item_view_retry_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/unsplash_photo_footer_retry_button"
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/unsplash_photo_footer_item_view_error_message" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

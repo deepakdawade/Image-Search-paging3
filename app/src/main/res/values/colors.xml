@@ -8,4 +8,5 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlue">#0080FF</color>
     <color name="colorError">#FF0000</color>
+    <color name="colorText">#212121</color>
 </resources>
