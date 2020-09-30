@@ -41,8 +41,8 @@ class UnsplashPhotoLoadStateAdapter(private val retry:()->Unit) :
         fun bind(loadState: LoadState){
              binding.apply {
                  unsplashPhotoFooterItemViewProgressBar.isVisible = loadState is LoadState.Loading
-                 unsplashPhotoFooterItemViewRetryButton.isVisible = loadState is LoadState.NotLoading
-                 unsplashPhotoFooterItemViewProgressBar.isVisible = loadState is LoadState.NotLoading
+                 unsplashPhotoFooterItemViewRetryButton.isVisible = loadState is LoadState.Error
+                 unsplashPhotoFooterItemViewErrorMessage.isVisible = loadState is LoadState.Error
                  executePendingBindings()
              }
         }
