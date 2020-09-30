@@ -13,8 +13,8 @@ import com.devdd.framework.imagesearch_pagination.util.extenstion.bindWithLayout
  * Created by @author Deepak Dawade on 9/30/2020 at 11:46 PM.
  * Copyright (c) 2020 deepakdawade.dd@gmail.com All rights reserved.
  **/
-class UnsplashLoadStateAdapter(private val retry:()->Unit) :
-    LoadStateAdapter<UnsplashLoadStateAdapter.UnsplashLoadStateViewHolder>() {
+class UnsplashPhotoLoadStateAdapter(private val retry:()->Unit) :
+    LoadStateAdapter<UnsplashPhotoLoadStateAdapter.UnsplashLoadStateViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

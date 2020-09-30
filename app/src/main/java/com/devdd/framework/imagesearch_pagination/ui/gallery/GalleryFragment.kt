@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devdd.framework.imagesearch_pagination.R
 import com.devdd.framework.imagesearch_pagination.databinding.FragmentGalleryBinding
-import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashLoadStateAdapter
 import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoAdapter
+import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoLoadStateAdapter
 import com.devdd.framework.imagesearch_pagination.util.extenstion.bindingWithLifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
-    private val binding:FragmentGalleryBinding get() = requireNotNull(_binding)
+    private val binding: FragmentGalleryBinding get() = requireNotNull(_binding)
     private val viewModel by viewModels<GalleryViewModel>()
     private val unsplashPhotoAdapter by lazy {
         UnsplashPhotoAdapter()
@@ -57,10 +57,10 @@ class GalleryFragment : Fragment() {
         binding.galleryFragmentRecyclerView.apply {
             setHasFixedSize(true)
             adapter = unsplashPhotoAdapter.withLoadStateHeaderAndFooter(
-                header = UnsplashLoadStateAdapter{
+                header = UnsplashPhotoLoadStateAdapter {
                     unsplashPhotoAdapter.retry()
                 },
-                footer = UnsplashLoadStateAdapter{
+                footer = UnsplashPhotoLoadStateAdapter {
                     unsplashPhotoAdapter.retry()
                 }
             )
