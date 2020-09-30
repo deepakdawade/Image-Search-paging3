@@ -18,7 +18,7 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/unsplash_photo_item_view_image"
-            errorPlaceholder="@{@drawable/ic_close}"
+            errorPlaceholder="@{@drawable/ic_launcher_foreground}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
