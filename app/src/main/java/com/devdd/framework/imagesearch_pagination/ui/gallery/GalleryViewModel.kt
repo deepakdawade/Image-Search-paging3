@@ -17,7 +17,7 @@ class GalleryViewModel @ViewModelInject constructor(
     companion object{
         private const val DEFAULT_QUERY = "cats"
     }
-    private val currentQuery:MutableLiveData<String> = MutableLiveData()
+    private val currentQuery:MutableLiveData<String> = MutableLiveData(DEFAULT_QUERY)
     val photos: LiveData<PagingData<UnSplashPhoto>> = currentQuery.switchMap {
         repository.getSearchResults(it).cachedIn(viewModelScope)
     }

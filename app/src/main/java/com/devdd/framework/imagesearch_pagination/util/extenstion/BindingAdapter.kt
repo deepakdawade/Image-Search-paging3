@@ -42,7 +42,7 @@ fun AppCompatImageView.glideLoadImage(
     val glideRequest = Glide.with(this)
     if (imagePath != null) {
         val loader =
-            glideRequest.load(imagePath).transition(DrawableTransitionOptions.withCrossFade(100))
+            glideRequest.load(imagePath).centerCrop().transition(DrawableTransitionOptions.withCrossFade())
         errorPlaceHolder?.let { drawable ->
             loader.placeholder(drawable)
         }

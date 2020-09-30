@@ -19,10 +19,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
-    lateinit var binding: FragmentGalleryBinding
-
+    private var _binding: FragmentGalleryBinding? = null
+    private val binding:FragmentGalleryBinding get() = requireNotNull(_binding)
     private val viewModel by viewModels<GalleryViewModel>()
-    private val adapter by lazy {
+    private val unsplashPhotoAdapter by lazy {
         UnsplashPhotoAdapter()
     }
 
@@ -36,7 +36,7 @@ class GalleryFragment : Fragment() {
             R.layout.fragment_gallery,
             container
         ).also {
-            binding = it
+            _binding = it
         }.root
     }
 
@@ -48,11 +48,19 @@ class GalleryFragment : Fragment() {
 
     private fun setupObserver() {
         viewModel.photos.observe(viewLifecycleOwner) {
-
+            unsplashPhotoAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
     }
 
     private fun setupRecyclerView() {
-        binding.galleryFragmentRecyclerView.adapter = adapter
+        binding.galleryFragmentRecyclerView.apply {
+            setHasFixedSize(true)
+            adapter = unsplashPhotoAdapter
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

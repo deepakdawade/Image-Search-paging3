@@ -1,8 +1,8 @@
 package com.devdd.framework.imagesearch_pagination.ui.gallery.adapter
 
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.devdd.framework.imagesearch_pagination.R
 import com.devdd.framework.imagesearch_pagination.data.UnSplashPhoto
@@ -10,7 +10,7 @@ import com.devdd.framework.imagesearch_pagination.databinding.ItemViewUnsplashPh
 import com.devdd.framework.imagesearch_pagination.util.extenstion.bindWithLayout
 
 class UnsplashPhotoAdapter :
-    ListAdapter<UnSplashPhoto, UnsplashPhotoAdapter.UnsplashViewHolder>(DiffUtilCallback()) {
+    PagingDataAdapter<UnSplashPhoto, UnsplashPhotoAdapter.UnsplashViewHolder>(DiffUtilCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
@@ -18,7 +18,9 @@ class UnsplashPhotoAdapter :
         UnsplashViewHolder(bindWithLayout(R.layout.item_view_unsplash_photo, parent))
 
     override fun onBindViewHolder(holder: UnsplashViewHolder, position: Int): Unit =
-        holder.bind(getItem(position))
+        getItem(position)?.let {
+            holder.bind(it)
+        } ?: Unit
 
     inner class UnsplashViewHolder(private val binding: ItemViewUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -29,7 +31,7 @@ class UnsplashPhotoAdapter :
     }
 }
 
-class DiffUtilCallback : DiffUtil.ItemCallback<UnSplashPhoto>() {
+object DiffUtilCallback : DiffUtil.ItemCallback<UnSplashPhoto>() {
     override fun areItemsTheSame(oldItem: UnSplashPhoto, newItem: UnSplashPhoto): Boolean {
         return oldItem.id == newItem.id
     }
