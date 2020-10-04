@@ -5,4 +5,6 @@
     <string name="gallery_fragment_empty_result_text">No result found for this query</string>
     <string name="unsplash_photo_footer_error_message">Results couldn\'t be loaded</string>
     <string name="unsplash_photo_footer_retry_button">Retry</string>
+    <string name="gallery_fragment_menu_search">Search</string>
+    <string name="gallery_fragment_toolbar_title">Gallery</string>
 </resources>

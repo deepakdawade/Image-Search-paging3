@@ -2,8 +2,11 @@ package com.devdd.framework.imagesearch_pagination.ui.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.devdd.framework.imagesearch_pagination.R
@@ -18,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Copyright (c) 2020 deepakdawade.dd@gmail.com All rights reserved.
  **/
 @AndroidEntryPoint
-class GalleryFragment : Fragment() {
+class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding: FragmentGalleryBinding get() = requireNotNull(_binding)
@@ -45,6 +48,7 @@ class GalleryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupObserver()
+        binding.galleryFragmentToolbar.setOnMenuItemClickListener(this)
     }
 
     private fun setupObserver() {
@@ -64,6 +68,29 @@ class GalleryFragment : Fragment() {
                     unsplashPhotoAdapter.retry()
                 }
             )
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.menu_gallery_search -> {
+                val searchView = item.actionView as? SearchView
+                searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        query?.let {
+                            binding.galleryFragmentRecyclerView.scrollToPosition(0)
+                            viewModel.searchPhotos(query)
+                            searchView.clearFocus()
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean = true
+                })
+                true
+            }
+            else -> false
+
         }
     }
 
