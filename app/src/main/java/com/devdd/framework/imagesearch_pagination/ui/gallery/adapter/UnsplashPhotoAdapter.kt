@@ -9,7 +9,7 @@ import com.devdd.framework.imagesearch_pagination.data.UnSplashPhoto
 import com.devdd.framework.imagesearch_pagination.databinding.ItemViewUnsplashPhotoBinding
 import com.devdd.framework.imagesearch_pagination.util.extenstion.bindWithLayout
 
-class UnsplashPhotoAdapter :
+class UnsplashPhotoAdapter(private val listener: OnPhotoItemClickListener) :
     PagingDataAdapter<UnSplashPhoto, UnsplashPhotoAdapter.UnsplashViewHolder>(DiffUtilCallback) {
 
 
@@ -24,13 +24,24 @@ class UnsplashPhotoAdapter :
 
     inner class UnsplashViewHolder(private val binding: ItemViewUnsplashPhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.root.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION)
+                    getItem(position)?.let {
+                        listener.onItemClick(it)
+                    }
+            }
+        }
         fun bind(item: UnSplashPhoto) {
             binding.unsplashPhoto = item
             binding.executePendingBindings()
         }
     }
 }
-
+interface OnPhotoItemClickListener{
+    fun onItemClick(photo: UnSplashPhoto)
+}
 object DiffUtilCallback : DiffUtil.ItemCallback<UnSplashPhoto>() {
     override fun areItemsTheSame(oldItem: UnSplashPhoto, newItem: UnSplashPhoto): Boolean {
         return oldItem.id == newItem.id

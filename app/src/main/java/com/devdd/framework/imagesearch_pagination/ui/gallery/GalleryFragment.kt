@@ -10,12 +10,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.devdd.framework.imagesearch_pagination.R
+import com.devdd.framework.imagesearch_pagination.data.UnSplashPhoto
 import com.devdd.framework.imagesearch_pagination.databinding.FragmentGalleryBinding
+import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.OnPhotoItemClickListener
 import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoAdapter
 import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoLoadStateAdapter
 import com.devdd.framework.imagesearch_pagination.util.extenstion.bindingWithLifecycleOwner
+import com.devdd.framework.imagesearch_pagination.util.extenstion.toJsonString
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -23,13 +27,13 @@ import dagger.hilt.android.AndroidEntryPoint
  * Copyright (c) 2020 deepakdawade.dd@gmail.com All rights reserved.
  **/
 @AndroidEntryPoint
-class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener {
+class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener,OnPhotoItemClickListener {
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding: FragmentGalleryBinding get() = requireNotNull(_binding)
     private val viewModel by viewModels<GalleryViewModel>()
     private val unsplashPhotoAdapter by lazy {
-        UnsplashPhotoAdapter()
+        UnsplashPhotoAdapter(this)
     }
 
     override fun onCreateView(
@@ -120,6 +124,11 @@ class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             else -> false
 
         }
+    }
+
+    override fun onItemClick(photo: UnSplashPhoto) {
+        val action = GalleryFragmentDirections.actionGalleryFragmentToGalleryDetailsFragment(photo.toJsonString())
+        findNavController().navigate(action)
     }
 
     override fun onDestroy() {

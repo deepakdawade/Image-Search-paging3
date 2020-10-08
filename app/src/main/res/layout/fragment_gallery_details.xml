@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.gallerydetails.GalleryDetailsFragment">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/gallery_details_fragment_root_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:id="@+id/gallery_details_fragment_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/gallery_details_fragment_scroll_view_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/gallery_details_fragment_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                tools:src="@mipmap/ic_launcher_round"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="8dp"
+                tools:layout_height="300dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gallery_details_fragment_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Description"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="8dp"
+                />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/gallery_details_fragment_creator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Photo by xyz"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="8dp"
+                />
+        </LinearLayout>
+        </ScrollView>
+        <ProgressBar
+            android:id="@+id/gallery_details_fragment_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+    </FrameLayout>
+</layout>

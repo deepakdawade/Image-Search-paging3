@@ -9,5 +9,18 @@
         android:id="@+id/galleryFragment"
         android:name="com.devdd.framework.imagesearch_pagination.ui.gallery.GalleryFragment"
         android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_galleryDetailsFragment"
+            app:destination="@id/galleryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryDetailsFragment"
+        android:name="com.devdd.framework.imagesearch_pagination.ui.gallerydetails.GalleryDetailsFragment"
+        android:label="fragment_gallery_details"
+        tools:layout="@layout/fragment_gallery_details" >
+        <argument
+            android:name="photo"
+            app:argType="string" />
+    </fragment>
 </navigation>
