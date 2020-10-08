@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import com.devdd.framework.imagesearch_pagination.R
 import com.devdd.framework.imagesearch_pagination.databinding.FragmentGalleryBinding
 import com.devdd.framework.imagesearch_pagination.ui.gallery.adapter.UnsplashPhotoAdapter
@@ -48,7 +50,32 @@ class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupObserver()
+        setupListener()
+    }
+
+    private fun setupListener() {
         binding.galleryFragmentToolbar.setOnMenuItemClickListener(this)
+        unsplashPhotoAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                galleryFragmentProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                galleryFragmentRecyclerView.isVisible =
+                    loadState.source.refresh is LoadState.NotLoading
+                galleryFragmentRetryButton.isVisible = loadState.source.refresh is LoadState.Error
+                galleryFragmentResultText.isVisible = loadState.source.refresh is LoadState.Error
+
+                //For empty view only
+                if (loadState.source.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached &&
+                    unsplashPhotoAdapter.itemCount < 1
+                ) {
+                    galleryFragmentRecyclerView.isVisible = false
+                    galleryFragmentEmptyResultText.isVisible = true
+                } else galleryFragmentEmptyResultText.isVisible = false
+            }
+        }
+        binding.galleryFragmentRetryButton.setOnClickListener {
+            unsplashPhotoAdapter.retry()
+        }
     }
 
     private fun setupObserver() {
