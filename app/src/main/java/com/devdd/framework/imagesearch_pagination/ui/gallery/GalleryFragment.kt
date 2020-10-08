@@ -86,6 +86,7 @@ class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener {
 
     private fun setupRecyclerView() {
         binding.galleryFragmentRecyclerView.apply {
+            itemAnimator = null
             setHasFixedSize(true)
             adapter = unsplashPhotoAdapter.withLoadStateHeaderAndFooter(
                 header = UnsplashPhotoLoadStateAdapter {
