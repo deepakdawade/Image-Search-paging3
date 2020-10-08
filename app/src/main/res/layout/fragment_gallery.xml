@@ -20,6 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="@color/colorWhite"
             app:navigationIcon="@drawable/ic_person"
+            android:theme="@style/ActionBarThemeOverlay"
             app:title="@string/gallery_fragment_toolbar_title"
             app:menu="@menu/menu_gallery" />
 
