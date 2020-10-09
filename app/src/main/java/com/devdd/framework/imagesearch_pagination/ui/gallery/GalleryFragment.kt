@@ -1,12 +1,8 @@
 package com.devdd.framework.imagesearch_pagination.ui.gallery
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * Copyright (c) 2020 deepakdawade.dd@gmail.com All rights reserved.
  **/
 @AndroidEntryPoint
-class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener,OnPhotoItemClickListener {
+class GalleryFragment : Fragment(), OnPhotoItemClickListener {
 
     private var _binding: FragmentGalleryBinding? = null
     private val binding: FragmentGalleryBinding get() = requireNotNull(_binding)
@@ -58,7 +54,7 @@ class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener,OnPhotoItemC
     }
 
     private fun setupListener() {
-        binding.galleryFragmentToolbar.setOnMenuItemClickListener(this)
+        setHasOptionsMenu(true)
         unsplashPhotoAdapter.addLoadStateListener { loadState ->
             binding.apply {
                 galleryFragmentProgressBar.isVisible = loadState.source.refresh is LoadState.Loading
@@ -103,31 +99,26 @@ class GalleryFragment : Fragment(), Toolbar.OnMenuItemClickListener,OnPhotoItemC
         }
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.menu_gallery_search -> {
-                val searchView = item.actionView as? SearchView
-                searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(query: String?): Boolean {
-                        query?.let {
-                            binding.galleryFragmentRecyclerView.scrollToPosition(0)
-                            viewModel.searchPhotos(query)
-                            searchView.clearFocus()
-                        }
-                        return true
-                    }
-
-                    override fun onQueryTextChange(newText: String?): Boolean = true
-                })
-                true
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_gallery, menu)
+        val searchView = menu.findItem(R.id.menu_gallery_search).actionView as? SearchView
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    binding.galleryFragmentRecyclerView.scrollToPosition(0)
+                    viewModel.searchPhotos(query)
+                    searchView.clearFocus()
+                }
+                return true
             }
-            else -> false
 
-        }
+            override fun onQueryTextChange(newText: String?): Boolean = true
+        })
     }
 
     override fun onItemClick(photo: UnSplashPhoto) {
-        val action = GalleryFragmentDirections.actionGalleryFragmentToGalleryDetailsFragment(photo.toJsonString())
+        val action =
+            GalleryFragmentDirections.actionGalleryFragmentToGalleryDetailsFragment(photo.toJsonString())
         findNavController().navigate(action)
     }
 

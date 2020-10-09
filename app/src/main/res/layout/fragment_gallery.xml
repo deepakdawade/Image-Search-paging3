@@ -12,18 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/gallery_fragment_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:titleTextColor="@color/colorWhite"
-            app:navigationIcon="@drawable/ic_person"
-            android:theme="@style/ActionBarThemeOverlay"
-            app:title="@string/gallery_fragment_toolbar_title"
-            app:menu="@menu/menu_gallery" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/gallery_fragment_recycler_view"
             android:layout_width="0dp"
@@ -34,7 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gallery_fragment_toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/item_view_unsplash_photo" />
 
         <ProgressBar
@@ -74,7 +62,7 @@
             app:layout_constraintBottom_toTopOf="@id/gallery_fragment_retry_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gallery_fragment_toolbar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
         <com.google.android.material.textview.MaterialTextView
